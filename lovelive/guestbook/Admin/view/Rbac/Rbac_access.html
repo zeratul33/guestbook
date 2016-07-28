@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限配置</title>
+    <script src="__PUBLIC__/js/jquery-2.1.4.js"></script>
+    <script>
+        $(function(){
+            $("input[level=1]").click(function(){
+
+                var inputs = $(this).parents(".app").find("input");
+
+                if ($(this).prop("checked"))
+                {
+
+                    inputs.prop("checked",true);
+                }
+                else inputs.prop('checked',false);
+            });
+            $("input[level=2]").click(function(){
+
+                var inputs = $(this).parents("dl").find("input");
+
+                if ($(this).prop("checked"))
+                {
+
+                    inputs.prop("checked",true);
+                }
+                else inputs.prop('checked',false);
+            });
+
+        })
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <a href='<{:U("Admin/Rbac/role")}>'>返回</a>
+    <form action='<{:U("Admin/Rbac/setAccess")}>' method="post">
+    <foreach name="node" item="app">
+        <div class="app">
+            <p>
+                <strong><{$app.title}></strong>
+                <input type="checkbox" name="access[]" value="<{$app.id}>_1" level="1" <if condition='$app["access"]==1'>checked</if>/>
+            </p>
+
+        <foreach name="app.child" item="action">
+            <dl>
+                <dt>
+                    <strong><{$action.title}></strong>
+                    <input type="checkbox" name="access[]" value="<{$action.id}>_2" level="2" <if condition='$action["access"]==1'>checked</if>/>
+                </dt>
+                <foreach name="action.child" item="method">
+                    <dd><span><{$method.title}></span>
+                        <input type="checkbox" name="access[]" value="<{$method.id}>_3" level="3" <if condition='$method["access"]==1'>checked</if>/>
+                    </dd>
+                </foreach>
+            </dl>
+        </foreach>
+        </div>
+    </foreach>
+        <input type="hidden" name="rid" value="<{$rid}>">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

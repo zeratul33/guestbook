@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>举报列表</title>
+    <link href="__PUBLIC__/css/tableCSS.css" rel="stylesheet">
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>留言者</th>
+            <th>发表内容</th>
+            <th>发表时间</th>
+            <th>登陆IP</th>
+            <th>举报时间</th>
+            <th>操作</th>
+        </tr>
+        <foreach name="del" item="v">
+            <td><{$v.id}></td>
+            <td><{$v.username}></td>
+            <td><{$v.content}></td>
+            <td><{$v.time}></td>
+            <td><{$v.userip}></td>
+            <td><{$v.reporttime}></td>
+            <td><a href='<{:U("Admin/Msgr/delHandle",array("delid"=>$v["id"]))}>'>删除</a></td>
+        </foreach>
+        <tr><td colspan="6"><{$page}></td></tr>
+    </table>
+</body>
+</html>

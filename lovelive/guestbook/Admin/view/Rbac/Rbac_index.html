@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/tableCSS.css">
+    <style>
+        tr a {display: block;text-decoration: none;border-radius: 4px;color: #fff0fb;background-color: #a200c9}
+    </style>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>用户</th>
+            <th>登陆IP</th>
+            <th>登录时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+
+            <foreach name="result" item="v">
+                <tr>
+                <td><{$v.id}></td>
+                <td><{$v.username}></td>
+                <td><{$v.loginip}></td>
+                <td><{$v.logintime}></td>
+                <td><{$v.lock}></td>
+                <td><if condition="$v['lock']==0">
+                        <a href='<{:U("Admin/Rbac/lockoff",array("id"=>$v["id"]))}>'>锁定</a>
+                    <else/>
+                        <a href='<{:U("Admin/Rbac/lockon",array("id"=>$v["id"]))}>'>开启</a>
+                    </if>
+                </td>
+                </tr>
+            </foreach>
+
+    </table>
+</body>
+</html>
